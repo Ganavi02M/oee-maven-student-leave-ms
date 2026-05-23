@@ -11,7 +11,7 @@ pipeline {
 
     environment {
 
-        DOCKER_IMAGE = "ganavi02m/leave-management-system"
+        DOCKER_IMAGE = "ganavi02m/leave-management-system1"
 
     }
 
@@ -120,7 +120,7 @@ pipeline {
                 https://github.com/Ganavi02M/oee-maven-student-leave-ms.git
                 
                 Docker Image:
-                ganavi02m/leave-management-system:latest
+                ganavi02m/leave-management-system1:latest
                 """,
 
                 to: 'ganavimganavi02@gmail.com'
