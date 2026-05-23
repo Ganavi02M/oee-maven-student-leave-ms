@@ -1,4 +1,6 @@
 pipeline {
+
+```
 agent any
 
 tools {
@@ -40,6 +42,7 @@ post {
     success {
         emailext(
             subject: "SUCCESS: Jenkins Build ${BUILD_NUMBER}",
+
             body: """
 ```
 
@@ -54,14 +57,16 @@ https://github.com/Ganavi02M/oee-maven-student-leave-ms.git
 Status:
 Build, Test, and Package completed successfully.
 """,
-to: '[ganavimganavi02@gmail.com](mailto:ganavimganavi02@gmail.com)'
-)
-}
 
 ```
+            to: 'ganavimganavi02@gmail.com'
+        )
+    }
+
     failure {
         emailext(
             subject: "FAILED: Jenkins Build ${BUILD_NUMBER}",
+
             body: """
 ```
 
@@ -69,8 +74,12 @@ Build Failed
 
 Please check Jenkins Console Output.
 """,
-to: '[ganavimganavi02@gmail.com](mailto:ganavimganavi02@gmail.com)'
-)
+
+```
+            to: 'ganavimganavi02@gmail.com'
+        )
+    }
 }
-}
+```
+
 }
