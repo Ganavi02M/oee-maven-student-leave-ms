@@ -22,9 +22,11 @@ pipeline {
             steps {
 
                 git branch: 'main',
+                credentialsId: 'github-credentials',
                 url: 'https://github.com/Ganavi02M/oee-maven-student-leave-ms.git'
 
             }
+
         }
 
         stage('Build') {
@@ -34,6 +36,7 @@ pipeline {
                 sh 'mvn clean compile'
 
             }
+
         }
 
         stage('Test') {
@@ -43,6 +46,7 @@ pipeline {
                 sh 'mvn test'
 
             }
+
         }
 
         stage('Package') {
@@ -52,6 +56,7 @@ pipeline {
                 sh 'mvn clean package'
 
             }
+
         }
 
         stage('Docker Build') {
@@ -61,6 +66,29 @@ pipeline {
                 sh 'docker build -t $DOCKER_IMAGE:latest .'
 
             }
+
+        }
+
+        stage('DockerHub Login') {
+
+            steps {
+
+                withCredentials([usernamePassword(
+
+                    credentialsId: 'dockerhub-credentials',
+
+                    usernameVariable: 'DOCKER_USER',
+
+                    passwordVariable: 'DOCKER_PASS'
+
+                )]) {
+
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+
+                }
+
+            }
+
         }
 
         stage('DockerHub Push') {
@@ -70,6 +98,7 @@ pipeline {
                 sh 'docker push $DOCKER_IMAGE:latest'
 
             }
+
         }
 
     }
